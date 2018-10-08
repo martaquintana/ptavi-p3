@@ -18,6 +18,7 @@ class ChistesHandler(ContentHandler):
         self.inPregunta = False
         self.respuesta = ""
         self.inRespuesta = False
+        self.chistes=[]
 
     def startElement(self, name, attrs):
         """
@@ -27,7 +28,6 @@ class ChistesHandler(ContentHandler):
             # De esta manera tomamos los valores de los atributos
             self.calificacion = attrs.get('calificacion', "")
         elif name == 'pregunta':
-            print("hola")
             self.inPregunta = True
         elif name == 'respuesta':
             self.inRespuesta = True
@@ -37,11 +37,19 @@ class ChistesHandler(ContentHandler):
         Método que se llama al cerrar una etiqueta
         """
         if name == 'pregunta':
+            self.chistes.append(self.pregunta)
             self.pregunta = ""
             self.inPregunta = False
         if name == 'respuesta':
+            self.chistes.append(self.respuesta)
             self.respuesta = ""
             self.inRespuesta = False
+        """
+        Otra forma de imprimir todo al final y no necesitariamos el método
+        
+        if name == 'humor':
+            print(self.chistes)
+        """
 
     def characters(self, char):
         """
@@ -51,6 +59,12 @@ class ChistesHandler(ContentHandler):
             self.pregunta = self.pregunta + char
         if self.inRespuesta:
             self.respuesta += char
+    """
+    Método imprimir que llamamos al final del programa
+    Gregorio me ha dicho que mejor este
+    """
+    def imprimir(self,chistes):
+        print(self.chistes)
 
 if __name__ == "__main__":
     """
@@ -60,3 +74,5 @@ if __name__ == "__main__":
     cHandler = ChistesHandler()
     parser.setContentHandler(cHandler)
     parser.parse(open('chistes2.xml'))
+    cHandler.imprimir(cHandler)
+    
