@@ -6,22 +6,25 @@ from xml.sax.handler import ContentHandler
 
 class SmallSMILHandler(ContentHandler):
     def __init__ (self):
-      self.width = ""
-      self.height = ""
-      self.background_color= ""
+      
+      self.diccionario= {"root-layout": ['width', 'height',  'background-color']} 
+      self.tag_list=[]
+      
+      print(self.diccionario.values())
+      
+      self.etiquetas=self.diccionario.keys()
+      print(self.etiquetas)
 
     def startElement(self, name, attrs):
-        """
-        Método que se llama cuando se abre una etiqueta
-        """
-        if name == 'root-layout':
+        
+        dic_tag={}
+        if name in self.diccionario:
+            dic_tag['etiqueta'] = name
             # De esta manera tomamos los valores de los atributos
-            self.width = attrs.get('width', "")
-            self.height = attrs.get('height', "")
-            self.background_color = attrs.get('background-color', "")
-            print(self.width)
-            print(self.height)
-            print(self.background_color)
+            for  atributo in self.diccionario[name]:
+                dic_tag[atributo] = attrs.get(atributo, "")
+                self.tag_list.append(dic_tag[atributo])
+        print(self.tag_list)
         
 
 if __name__ == "__main__":
