@@ -8,14 +8,15 @@ from xml.sax.handler import ContentHandler
 
 
 class Karaoke:
-    
-    def ___init__(self,fichero):
-        cHandler = smallsmilhandler.SmallSMILHandler()
-        parser = make_parser()
-        parser.setContentHandler(cHandler)
-        parser.parse(open(fichero))
-        self.get_tagslist=cHandler.get_tags()
-        print(self.get_tagslist)
+    get_tagslist=[]
+   
+    def imprimir(self):
+        get_tagslist=cHandler.get_tags()
+        print(get_tagslist)
+        
+       format(get_tagslist)
+
+
 
 if __name__ == '__main__':
     fichero = sys.argv[1]
@@ -25,8 +26,8 @@ if __name__ == '__main__':
         parser = make_parser()
         parser.setContentHandler(cHandler)
         parser.parse(open(fichero))
-        get_tagslist=cHandler.get_tags()
-        print(get_tagslist)
+        Karaoke.imprimir(cHandler)
+
         
     except(FileNotFoundError,IndexError):
         print("Usage: python3 karaoke.py file.smil")
