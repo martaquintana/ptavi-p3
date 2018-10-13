@@ -8,14 +8,19 @@ from xml.sax.handler import ContentHandler
 
 
 class Karaoke:
-    get_tagslist=[]
+    get_tags=[]
    
     def imprimir(self):
-        get_tagslist=cHandler.get_tags()
-        print(get_tagslist)
-        
-       format(get_tagslist)
-
+        get_tags=cHandler.get_tags()
+        print(get_tags)
+        for linea in range(0,len (get_tags)):
+            dicc=get_tags[linea]
+            print(dicc)
+            #print ('{etiqueta}\t{width}\t{height}\t{background-color}\n'.format(**dicc))
+  
+            for clave, valor in dicc.items(): 
+                print ('{c}={v}'.format(c=clave,v=valor),end='\t')
+            print('\n')
 
 
 if __name__ == '__main__':
