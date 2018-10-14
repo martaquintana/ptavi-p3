@@ -9,13 +9,18 @@ from xml.sax.handler import ContentHandler
 
 
 class KaraokeLocal:
-    get_tags=[]
+    
+    def __init__(self,fichero):
+        self.get_tags=[]
    
     def __str__(self):
-        get_tags=cHandler.get_tags()
-        print(get_tags)
-        for linea in range(0,len (get_tags)):
-            dicc=get_tags[linea]
+        """
+        Imprime el listado de etiquetas
+        """
+        self.get_tags=cHandler.get_tags()
+        #print(self.get_tags)
+        for linea in range(0,len (self.get_tags)):
+            dicc=self.get_tags[linea]
             #print(dicc)
             #print ('{etiqueta}\t{width}\t{height}\t{background-color}\n'.format(**dicc))
             
@@ -27,8 +32,14 @@ class KaraokeLocal:
                 else:
                     print ('{c}="{v}"'.format(c=clave,v=valor),end='\t')
             print('\n')
-    def to_json(self,fichero)
-
+    def to_json(self,fichero,fichero_json=None):
+        """
+        Fichero JSON
+        """
+        if fichero_json == None:
+            fichero_json = fichero.split('.')[0]+'.json'
+        json.dump(self.get_tags,open(fichero_json,"w"))
+        
 
 if __name__ == '__main__':
     fichero = sys.argv[1]
@@ -39,6 +50,7 @@ if __name__ == '__main__':
         parser.setContentHandler(cHandler)
         parser.parse(open(fichero))
         KaraokeLocal.__str__(cHandler)
+        KaraokeLocal.to_json(cHandler,fichero)
 
         
     except(FileNotFoundError,IndexError):
