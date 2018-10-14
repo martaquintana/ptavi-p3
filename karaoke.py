@@ -52,7 +52,7 @@ class KaraokeLocal:
                 if clave == 'src' and valor[0:5] == "http:":
                     newvalor=valor.split('/')[-1] 
                     #urlretrieve(valor, newvalor)
-                    #No me funciona en casa si lo quito si lo pone bien
+                    #No me funciona en casa si lo quito si lo hace bien
                     valor=newvalor
                 
                 if clave == 'etiqueta' :
