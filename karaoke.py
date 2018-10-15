@@ -30,10 +30,10 @@ class KaraokeLocal:
                 if clave == 'etiqueta':
                     print('{v}'.format(v=valor), end='\t')
                 elif valor == '':
-                    print('')
+                    print('', end='')
                 else:
                     print('{c}="{v}"'.format(c=clave, v=valor), end='\t')
-            print('\n')
+            print('', end='\n')
 
     def to_json(self, fichero, fichero_json=None):
         """
@@ -62,10 +62,10 @@ class KaraokeLocal:
                 if clave == 'etiqueta':
                     print('{v}'.format(v=valor), end='\t')
                 elif valor == '':
-                    print('')
+                    print('', end ='')
                 else:
                     print('{c}="{v}"'.format(c=clave, v=valor), end='\t')
-            print('\n')
+            print('', end='\n')
 
 
 if __name__ == '__main__':
