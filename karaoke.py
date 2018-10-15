@@ -28,7 +28,7 @@ class KaraokeLocal:
 
             for clave, valor in self.dicc.items():
                 if clave == 'etiqueta':
-                    print('{v}\t'.format(v=valor), end='\t')
+                    print('{v}'.format(v=valor), end='\t')
                 elif valor == '':
                     print('')
                 else:
@@ -60,7 +60,7 @@ class KaraokeLocal:
                     valor = newvalor
 
                 if clave == 'etiqueta':
-                    print('{v}\t'.format(v=valor), end='\t')
+                    print('{v}'.format(v=valor), end='\t')
                 elif valor == '':
                     print('')
                 else:
@@ -80,5 +80,5 @@ if __name__ == '__main__':
         KaraokeLocal.to_json(cHandler, fichero)
         KaraokeLocal.do_local(cHandler)
 
-    except(FileNotFoundError,IndexError):
+    except(FileNotFoundError, IndexError):
         print("Usage: python3 karaoke.py file.smil")
