@@ -14,26 +14,28 @@ class KaraokeLocal:
     def __init__(self, fichero):
         self.get_tags = []
         self.dicc = {}
+        parser = make_parser()
+        cHandler = smallsmilhandler.SmallSMILHandler()
+        parser.setContentHandler(cHandler)
+        parser.parse(open(fichero))
+        self.get_tags = cHandler.get_tags()
 
     def __str__(self):
         """
-        Imprime el listado de etiquetas
+        Devuelve una cadena de texto con todo
         """
-        self.get_tags = cHandler.get_tags()
-        # print(self.get_tags)
+        list = []
         for linea in range(0, len(self.get_tags)):
             self.dicc = self.get_tags[linea]
-            # print(dicc)
-            # print('{etiqueta}\t{width}\t{height}\t{background-color}\n'.format(**dicc))
-
             for clave, valor in self.dicc.items():
                 if clave == 'etiqueta':
-                    print('{v}'.format(v=valor), end='\t')
+                    list += ('{v}''\t'.format(v=valor))
                 elif valor == '':
-                    print('', end='')
+                    list += ('')
                 else:
-                    print('{c}="{v}"'.format(c=clave, v=valor), end='\t')
-            print('', end='\n')
+                    list += ('{c}="{v}"''\t'.format(c=clave, v=valor))
+            list += ('\n')
+        return(''.join(list))
 
     def to_json(self, fichero, fichero_json=None):
         """
@@ -52,33 +54,24 @@ class KaraokeLocal:
             for clave, valor in self.dicc.items():
                 if clave == 'src' and valor[0:5] == "http:":
                     newvalor = valor.split('/')[-1]
-                    urlretrieve(valor, newvalor)
+                    # urlretrieve(valor, newvalor)
                     """
                     urlretrieve No me funciona en casa,
                     en los laboratorios si
                     """
                     valor = newvalor
 
-                if clave == 'etiqueta':
-                    print('{v}'.format(v=valor), end='\t')
-                elif valor == '':
-                    print('', end ='')
-                else:
-                    print('{c}="{v}"'.format(c=clave, v=valor), end='\t')
-            print('', end='\n')
-
 
 if __name__ == '__main__':
     fichero = sys.argv[1]
     try:
         open(fichero)
-        cHandler = smallsmilhandler.SmallSMILHandler()
-        parser = make_parser()
-        parser.setContentHandler(cHandler)
-        parser.parse(open(fichero))
-        KaraokeLocal.__str__(cHandler)
-        KaraokeLocal.to_json(cHandler, fichero)
-        KaraokeLocal.do_local(cHandler)
+        karaoke_local = KaraokeLocal(fichero)
+        print(karaoke_local)
+        karaoke_local.to_json(fichero)
+        karaoke_local.do_local()
+        karaoke_local.to_json(fichero, 'local.json')
+        print(karaoke_local)
 
     except(FileNotFoundError, IndexError):
         print("Usage: python3 karaoke.py file.smil")
