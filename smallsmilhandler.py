@@ -11,10 +11,10 @@ class SmallSMILHandler(ContentHandler):
 
         self.diccionario = {
             "root-layout": ['width', 'height', 'background-color'],
-            "region": ['id', 'top', 'left'],
-            "img": ['src', 'region', 'begin', 'dur', 'end'],
-            "audio": ['src', 'begin'],
-            "textstream": ['src', 'region', 'fill']
+            "region": ['id', 'top', 'left', 'right'],
+            "img": ['src', 'region', 'begin', 'dur'],
+            "audio": ['src', 'begin', 'dur'],
+            "textstream": ['src', 'region', ]
             }
         self.tag_list = []
         self.etiquetas = self.diccionario.keys()
