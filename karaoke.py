@@ -54,7 +54,7 @@ class KaraokeLocal:
             for clave, valor in self.dicc.items():
                 if clave == 'src' and valor[0:5] == "http:":
                     newvalor = valor.split('/')[-1]
-                    # urlretrieve(valor, newvalor)
+                    urlretrieve(valor, newvalor)
                     """
                     urlretrieve No me funciona en casa,
                     en los laboratorios si
